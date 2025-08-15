@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rauna - Personal Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0a0a14',
+                        navy: '#0f172a',
+                        neon: '#00d4ff',
+                        neonHover: '#00a2c7'
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0a0a14 0%, #0f172a 100%);
+            font-family: 'Poppins', sans-serif;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.7);
+        }
+        
+        .glow-border {
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+        }
+        
+        .glow-button {
+            transition: all 0.3s ease;
+        }
+        
+        .glow-button:hover {
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.7);
+            transform: translateY(-3px);
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .section-title:hover {
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.7);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #00d4ff;
+            border-radius: 3px;
+        }
+        
+        .card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.2);
+            border: 1px solid rgba(0, 212, 255, 0.5);
+        }
+        
+        .playlist-item {
+            transition: all 0.3s ease;
+        }
+        
+        .playlist-item:hover {
+            background: rgba(15, 23, 42, 0.9);
+            border-left: 3px solid #00d4ff;
+        }
+        
+        .play-button {
+            transition: all 0.3s ease;
+        }
+        
+        .play-button:hover {
+            color: #00d4ff;
+            transform: scale(1.1);
+        }
+        
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .profile-border {
+            border: 3px solid transparent;
+            border-radius: 50%;
+            background: linear-gradient(to bottom, #0a0a14, #0f172a) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+        }
+        
+        .profile-border::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, #00d4ff, #00a2c7, #00d4ff);
+            border-radius: 50%;
+            z-index: -1;
+            animation: rotate 4s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .audio-player {
+            width: 100%;
+            height: 40px;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #00d4ff;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00a2c7;
+        }
+    </style>
+</head>
+<body class="font-poppins">
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-navy border-b border-neon/20">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="text-xl font-bold text-neon glow-text">Rauna</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-300 hover:text-neon transition duration-300">Home</a>
+                    <a href="#about" class="text-gray-300 hover:text-neon transition duration-300">About</a>
+                    <a href="#education" class="text-gray-300 hover:text-neon transition duration-300">Education</a>
+                    <a href="#achievements" class="text-gray-300 hover:text-neon transition duration-300">Achievements</a>
+                    <a href="#blog" class="text-gray-300 hover:text-neon transition duration-300">Blog</a>
+                    <a href="#skills" class="text-gray-300 hover:text-neon transition duration-300">Skills</a>
+                    <a href="#playlist" class="text-gray-300 hover:text-neon transition duration-300">Playlist</a>
+                </div>
+                <button class="md:hidden text-neon">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Header / Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-30 animate-blob"></div>
+            <div class="absolute top-1/3 right-1/4 w-72 h-72 bg-cyan-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+            <div class="absolute bottom-1/4 left-1/3 w-60 h-60 bg-teal-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 z-10 py-20">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 mb-10 md:mb-0 text-center md:text-left">
+                    <h1 class="text-5xl md:text-6xl font-bold mb-4 glow-text">Rauna</h1>
+                    <p class="text-xl md:text-2xl mb-8 text-cyan-300">Mindset Determines Attitude</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <a href="#" class="glow-button bg-neon text-dark font-semibold py-3 px-8 rounded-full hover:bg-neonHover transition duration-300">
+                            Download CV
+                        </a>
+                        <a href="#contact" class="glow-button border-2 border-neon text-neon font-semibold py-3 px-8 rounded-full hover:bg-neon hover:text-dark transition duration-300">
+                            Contact Me
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="relative profile-border">
+                        <div class="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-navy">
+                            <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-full flex items-center justify-center text-gray-500">
+                                Profile Photo
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="py-20 bg-navy">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-3xl md:text-4xl font-bold mb-12">About Me</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="card p-8 rounded-2xl">
+                    <p class="text-lg mb-6 leading-relaxed">
+                        Hello, I'm Rauna. Born on August 12, 2007, from Solan Village, Tabalong.
+                    </p>
+                    <p class="text-lg mb-6 leading-relaxed">
+                        I am passionate about design and creativity. Currently pursuing higher education while keeping an interest in modern technology and digital art. I believe that continuous learning and growth are essential for personal and professional development.
+                    </p>
+                    <p class="text-lg leading-relaxed">
+                        My journey has been shaped by curiosity and a desire to create meaningful experiences through design and technology. I'm always exploring new ideas and pushing the boundaries of what's possible.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-3xl md:text-4xl font-bold mb-12">Education</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="card p-6 rounded-xl">
+                    <div class="text-neon text-2xl mb-4">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">SD Negeri 6 Solan</h3>
+                    <p class="text-gray-400">Elementary School</p>
+                </div>
+                
+                <div class="card p-6 rounded-xl">
+                    <div class="text-neon text-2xl mb-4">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">SMP Negeri 3 Jaro</h3>
+                    <p class="text-gray-400">Junior High School</p>
+                </div>
+                
+                <div class="card p-6 rounded-xl">
+                    <div class="text-neon text-2xl mb-4">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">SMA Negeri 1 Jaro</h3>
+                    <p class="text-gray-400">Senior High School</p>
+                </div>
+                
+                <div class="card p-6 rounded-xl">
+                    <div class="text-neon text-2xl mb-4">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Lambung Mangkurat University</h3>
+                    <p class="text-gray-400">Faculty of Economics and Business, Diploma 3 in Taxation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="py-20 bg-navy">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-3xl md:text-4xl font-bold mb-12">Achievements</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="card p-8 rounded-2xl">
+                    <ul class="space-y-6">
+                        <li class="flex items-start">
+                            <div class="mt-1 mr-4 text-neon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2">Certified in Computer and Web Development</h3>
+                                <p class="text-gray-400">During Senior High School</p>
+                            </div>
+                        </li>
+                        
+                        <li class="flex items-start">
+                            <div class="mt-1 mr-4 text-neon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2">Festival Drumband Piala Bupati Tingkat Kabupaten</h3>
+                                <ul class="list-disc pl-5 space-y-2 mt-2">
+                                    <li>1st Place as Team Member</li>
+                                    <li>2nd Place as Team Member</li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-3xl md:text-4xl font-bold mb-12">Growth Mindset</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="card p-8 rounded-2xl">
+                    <div class="flex items-center mb-6">
+                        <div class="ml-4">
+                            <h3 class="text-xl font-semibold">Sumber: Carol Dweck</h3>
+                            <p class="text-gray-400">Konsep Growth Mindset</p>
+                        </div>
+                    </div>
+                    <p class="text-lg leading-relaxed mb-6">
+                        Growth mindset is the belief that abilities and intelligence can be developed through dedication and hard work. This mindset fosters a love for learning and resilience, which are essential for success.
+                    </p>
+                    <p class="text-lg leading-relaxed">
+                        People with a growth mindset understand that their talents and abilities can be developed through effort, good teaching and persistence. They don't necessarily think everyone's the same or anyone can be Einstein, but they believe everyone can get smarter if they work at it.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Playlist Section -->
+    <section id="playlist" class="py-20 bg-navy">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-3xl md:text-4xl font-bold mb-12">My Playlist</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-4">
+                    <!-- Track 1 -->
+                    <div class="playlist-item card p-6 rounded-xl flex flex-col md:flex-row items-center">
+                        <div class="flex items-center mb-4 md:mb-0 md:mr-6">
+                            <button class="play-button text-neon text-2xl mr-4">
+                                <i class="fas fa-play-circle"></i>
+                            </button>
+                            <div>
+                                <h3 class="text-lg font-semibold">The 1975 - About You</h3>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-1/2">
+                            <audio class="audio-player" controls>
+                                <source src="https://files.catbox.moe/nw0w73.mp3" type="audio/mpeg">
+                            </audio>
+                        </div>
+                    </div>
+                    
+                    <!-- Track 2 -->
+                    <div class="playlist-item card p-6 rounded-xl flex flex-col md:flex-row items-center">
+                        <div class="flex items-center mb-4 md:mb-0 md:mr-6">
+                            <button class="play-button text-neon text-2xl mr-4">
+                                <i class="fas fa-play-circle"></i>
+                            </button>
+                            <div>
+                                <h3 class="text-lg font-semibold">sombr - Back to Friends</h3>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-1/2">
+                            <audio class="audio-player" controls>
+                                <source src="https://files.catbox.moe/eco913.mp3" type="audio/mpeg">
+                            </audio>
+                        </div>
+                    </div>
+                    
+                    <!-- Track 3 -->
+                    <div class="playlist-item card p-6 rounded-xl flex flex-col md:flex-row items-center">
+                        <div class="flex items-center mb-4 md:mb-0 md:mr-6">
+                            <button class="play-button text-neon text-2xl mr-4">
+                                <i class="fas fa-play-circle"></i>
+                            </button>
+                            <div>
+                                <h3 class="text-lg font-semibold">Magic - Rude</h3>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-1/2">
+                            <audio class="audio-player" controls>
+                                <source src="https://files.catbox.moe/jmyp44.mp3" type="audio/mpeg">
+                            </audio>
+                        </div>
+                    </div>
+                    
+                    <!-- Track 4 -->
+                    <div class="playlist-item card p-6 rounded-xl flex flex-col md:flex-row items-center">
+                        <div class="flex items-center mb-4 md:mb-0 md:mr-6">
+                            <button class="play-button text-neon text-2xl mr-4">
+                                <i class="fas fa-play-circle"></i>
+                            </button>
+                            <div>
+                                <h3 class="text-lg font-semibold">Feast - Berselancar Kami Belum Tentu</h3>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-1/2">
+                            <audio class="audio-player" controls>
+                                <source src="https://files.catbox.moe/x517mc.mp3" type="audio/mpeg">
+                            </audio>
+                        </div>
+                    </div>
+                    
+                    <!-- Track 5 -->
+                    <div class="playlist-item card p-6 rounded-xl flex flex-col md:flex-row items-center">
+                        <div class="flex items-center mb-4 md:mb-0 md:mr-6">
+                            <button class="play-button text-neon text-2xl mr-4">
+                                <i class="fas fa-play-circle"></i>
+                            </button>
+                            <div>
+                                <h3 class="text-lg font-semibold">Billie Eilish - Birds of a Feather</h3>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-1/2">
+                            <audio class="audio-player" controls>
+                                <source src="https://files.catbox.moe/xi1m9c.mp3" type="audio/mpeg">
+                            </audio>
+                        </div>
+                    </div>
+                    
+                    <!-- Track 6 -->
+                    <div class="playlist-item card p-6 rounded-xl flex flex-col md:flex-row items-center">
+                        <div class="flex items-center mb-4 md:mb-0 md:mr-6">
+                            <button class="play-button text-neon text-2xl mr-4">
+                                <i class="fas fa-play-circle"></i>
+                            </button>
+                            <div>
+                                <h3 class="text-lg font-semibold">Batas Senja - Kita Usahakan Lagi</h3>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-1/2">
+                            <audio class="audio-player" controls>
+                                <source src="https://files.catbox.moe/zgs16v.mp3" type="audio/mpeg">
+                            </audio>
+                        </div>
+                    </div>
+                    
+                    <!-- Track 7 -->
+                    <div class="playlist-item card p-6 rounded-xl flex flex-col md:flex-row items-center">
+                        <div class="flex items-center mb-4 md:mb-0 md:mr-6">
+                            <button class="play-button text-neon text-2xl mr-4">
+                                <i class="fas fa-play-circle"></i>
+                            </button>
+                            <div>
+                                <h3 class="text-lg font-semibold">Adele - Skyfall</h3>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-1/2">
+                            <audio class="audio-player" controls>
+                                <source src="https://files.catbox.moe/pb3yz3.mp3" type="audio/mpeg">
+                            </audio>
+                        </div>
+                    </div>
+                    
+                    <!-- Track 8 -->
+                    <div class="playlist-item card p-6 rounded-xl flex flex-col md:flex-row items-center">
+                        <div class="flex items-center mb-4 md:mb-0 md:mr-6">
+                            <button class="play-button text-neon text-2xl mr-4">
+                                <i class="fas fa-play-circle"></i>
+                            </button>
+                            <div>
+                                <h3 class="text-lg font-semibold">ABBA - The Winner Takes It All</h3>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-1/2">
+                            <audio class="audio-player" controls>
+                                <source src="https://files.catbox.moe/zcx5db.mp3" type="audio/mpeg">
+                            </audio>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-3xl md:text-4xl font-bold mb-12">IT Skills & Tools</h2>
+            
+            <!-- Programming Skills -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-semibold mb-8 text-center">Programming Languages & Technologies</h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                    <!-- HTML -->
+                    <div class="card p-6 rounded-xl flex flex-col items-center text-center">
+                        <i class="fab fa-html5 text-4xl text-orange-500 mb-3"></i>
+                        <h4 class="text-lg font-semibold">HTML</h4>
+                    </div>
+                    
+                    <!-- CSS -->
+                    <div class="card p-6 rounded-xl flex flex-col items-center text-center">
+                        <i class="fab fa-css3-alt text-4xl text-blue-500 mb-3"></i>
+                        <h4 class="text-lg font-semibold">CSS</h4>
+                    </div>
+                    
+                    <!-- JavaScript -->
+                    <div class="card p-6 rounded-xl flex flex-col items-center text-center">
+                        <i class="fab fa-js text-4xl text-yellow-400 mb-3"></i>
+                        <h4 class="text-lg font-semibold">JavaScript</h4>
+                    </div>
+                    
+                    <!-- Node.js -->
+                    <div class="card p-6 rounded-xl flex flex-col items-center text-center">
+                        <i class="fab fa-node-js text-4xl text-green-500 mb-3"></i>
+                        <h4 class="text-lg font-semibold">Node.js</h4>
+                    </div>
+                    
+                    <!-- Golang -->
+                    <div class="card p-6 rounded-xl flex flex-col items-center text-center">
+                        <i class="fab fa-golang text-4xl text-blue-400 mb-3"></i>
+                        <h4 class="text-lg font-semibold">Golang</h4>
+                    </div>
+                    
+                    <!-- Basic -->
+                    <div class="card p-6 rounded-xl flex flex-col items-center text-center">
+                        <i class="fas fa-code text-4xl text-gray-400 mb-3"></i>
+                        <h4 class="text-lg font-semibold">Basic</h4>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tools -->
+            <div>
+                <h3 class="text-2xl font-semibold mb-8 text-center">Development Tools & Platforms</h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                    <!-- Replit -->
+                    <div class="card p-6 rounded-xl flex flex-col items-center text-center">
+                        <i class="fas fa-laptop-code text-4xl text-gray-300 mb-3"></i>
+                        <h4 class="text-lg font-semibold">Replit</h4>
+                    </div>
+                    
+                    <!-- GitHub -->
+                    <div class="card p-6 rounded-xl flex flex-col items-center text-center">
+                        <i class="fab fa-github text-4xl text-gray-300 mb-3"></i>
+                        <h4 class="text-lg font-semibold">GitHub</h4>
+                    </div>
+                    
+                    <!-- GitLab -->
+                    <div class="card p-6 rounded-xl flex flex-col items-center text-center">
+                        <i class="fab fa-gitlab text-4xl text-orange-500 mb-3"></i>
+                        <h4 class="text-lg font-semibold">GitLab</h4>
+                    </div>
+                    
+                    <!-- Heroku -->
+                    <div class="card p-6 rounded-xl flex flex-col items-center text-center">
+                        <i class="fas fa-cloud-upload-alt text-4xl text-purple-500 mb-3"></i>
+                        <h4 class="text-lg font-semibold">Heroku</h4>
+                    </div>
+                    
+                    <!-- MongoDB -->
+                    <div class="card p-6 rounded-xl flex flex-col items-center text-center">
+                        <i class="fas fa-database text-4xl text-green-500 mb-3"></i>
+                        <h4 class="text-lg font-semibold">MongoDB</h4>
+                    </div>
+                    
+                    <!-- Roadmap.sh -->
+                    <div class="card p-6 rounded-xl flex flex-col items-center text-center">
+                        <i class="fas fa-map-signs text-4xl text-blue-400 mb-3"></i>
+                        <h4 class="text-lg font-semibold">Roadmap.sh</h4>
+                    </div>
+                    
+                    <!-- Railway.app -->
+                    <div class="card p-6 rounded-xl flex flex-col items-center text-center">
+                        <i class="fas fa-train text-4xl text-red-500 mb-3"></i>
+                        <h4 class="text-lg font-semibold">Railway.app</h4>
+                    </div>
+                    
+                    <!-- Pterodactyl -->
+                    <div class="card p-6 rounded-xl flex flex-col items-center text-center">
+                        <i class="fas fa-server text-4xl text-orange-400 mb-3"></i>
+                        <h4 class="text-lg font-semibold">Pterodactyl</h4>
+                    </div>
+                    
+                    <!-- VPS -->
+                    <div class="card p-6 rounded-xl flex flex-col items-center text-center">
+                        <i class="fas fa-server text-4xl text-gray-400 mb-3"></i>
+                        <h4 class="text-lg font-semibold">VPS</h4>
+                    </div>
+                    
+                    <!-- AstraDB -->
+                    <div class="card p-6 rounded-xl flex flex-col items-center text-center">
+                        <i class="fas fa-database text-4xl text-purple-400 mb-3"></i>
+                        <h4 class="text-lg font-semibold">AstraDB</h4>
+                    </div>
+                    
+                    <!-- MySQL -->
+                    <div class="card p-6 rounded-xl flex flex-col items-center text-center">
+                        <i class="fas fa-database text-4xl text-blue-500 mb-3"></i>
+                        <h4 class="text-lg font-semibold">MySQL</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 bg-dark border-t border-navy">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-500">© 2023 Rauna. All rights reserved.</p>
+            <div class="flex justify-center space-x-6 mt-4">
+                <a href="#" class="text-gray-400 hover:text-neon transition duration-300">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-neon transition duration-300">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-neon transition duration-300">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-neon transition duration-300">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Play button functionality
+        document.querySelectorAll('.play-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const audio = this.closest('.playlist-item').querySelector('audio');
+                if (audio.paused) {
+                    // Pause all other audios
+                    document.querySelectorAll('audio').forEach(a => {
+                        if (a !== audio) a.pause();
+                    });
+                    audio.play();
+                    this.innerHTML = '<i class="fas fa-pause-circle"></i>';
+                } else {
+                    audio.pause();
+                    this.innerHTML = '<i class="fas fa-play-circle"></i>';
+                }
+            });
+        });
+        
+        // Audio event listeners to update play buttons
+        document.querySelectorAll('audio').forEach(audio => {
+            audio.addEventListener('play', function() {
+                const button = this.closest('.playlist-item').querySelector('.play-button');
+                button.innerHTML = '<i class="fas fa-pause-circle"></i>';
+            });
+            
+            audio.addEventListener('pause', function() {
+                const button = this.closest('.playlist-item').querySelector('.play-button');
+                button.innerHTML = '<i class="fas fa-play-circle"></i>';
+            });
+        });
+    </script>
+<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=rrenaasosooa/raunaaxv" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
+</html>
